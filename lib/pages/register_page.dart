@@ -3,20 +3,21 @@ import 'package:chatapp/component/square_tile.dart';
 import 'package:chatapp/component/textfield.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   //login method
-  void login() {}
-  void googleSignIn() {}
-  void appleSignIn() {}
+  void register() {}
+  void googleSignUp() {}
+  void appleSignUp() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   Icons.mark_chat_read,
                 ),
                 const SizedBox(
-                  height: 90,
+                  height: 70,
                 ),
                 //EMAIL TEXTFIELD
                 MyTextField(
@@ -58,8 +59,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 //PASSWORD TEXTFIELD
                 MyTextField(
-                  controller: emailController,
+                  controller: passwordController,
                   hintText: 'Password',
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                //PASSWORD TEXTFIELD
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                 ),
@@ -67,18 +78,29 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
 
-                //forgot password
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                //ALREADY REGISTERED
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.blue,
+                      const Padding(
+                        padding: EdgeInsets.only(right: 5.0),
+                        child: Text(
+                          'Already Registered?',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blue,
+                          ),
                         ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          '/login',
+                        ),
+                        child: const Text('Login Here',
+                            style: TextStyle(fontWeight: FontWeight.w600)),
                       ),
                     ],
                   ),
@@ -88,8 +110,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 //LOGIN BUTTON
                 Button(
-                  text: 'Login',
-                  onTap: login,
+                  text: 'Sign Up',
+                  onTap: register,
                 ),
                 const SizedBox(
                   height: 10,
@@ -132,41 +154,16 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SquareTile(
-                      onTap: googleSignIn,
+                      onTap: googleSignUp,
                       image: 'lib/images/google.png',
                     ),
                     SquareTile(
-                      onTap: appleSignIn,
+                      onTap: appleSignUp,
                       image: 'lib/images/apple2.png',
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Text(
-                        'Dont Have an Account?',
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/register'),
-                        child: const Text(
-                          'Register Here',
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+               
               ],
             ),
           ),
